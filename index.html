@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> SARITA KUNJ MITRA MANDAL </title>
+<!--fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;600&amp;display=swap" rel="stylesheet">
+<!--  tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- GSAP / Lenis / Iconify -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<style>
+/*core*/
+:root {
+--c-bg: #E3E1DC;
+--c-dark: #121212;
+--c-accent: #4A5D48; /* Deep Sage */
+--font-display: 'Syncopate', sans-serif;
+--font-body: 'Pretendard', sans-serif;
+}
+
+body {
+background-color: var(--c-bg);
+color: var(--c-dark);
+font-family: var(--font-body);
+margin: 0;
+overflow-x: hidden;
+opacity: 0;
+font-family: 'Poppins' , 'Noto Sans Devnagri' , sans-serif ; 
+font-size : clamp(0.8rem , 1.2vw , 1.2rem) ;
+}
+.text-container{
+display : flex ; 
+align-items : center ; 
+flex-wrap : wrap ; 
+}
+.wrapper {
+position: relative;
+z-index: 10;
+background-color: var(--c-bg);
+margin-bottom: 100vh;
+box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+}
+.word-wrap {
+display: inline-block;
+overflow: hidden;
+vertical-align: top;
+padding-bottom: 0.1rem;
+}
+.word-inner {
+display: inline-block;
+transform: translateY(110%);
+}
+.loader {
+position: fixed;
+inset: 0;
+background: #000;
+z-index: 10000;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #fff;
+}
+.loader-text {
+font-family: var(--font-display);
+font-size: 4vw;
+font-weight: 600;
+letter-spacing: -0.05rem;
+}
+.loader-bar {
+position: absolute;
+bottom: 0;
+left: 0;
+height: 0.25rem;
+background: #fff;
+width: 0%;
+}
+.stack-section {
+padding: 10vh 0;
+background: var(--c-dark);
+color: #E3E1DC;
+position: relative;
+}
+.stack-container {
+width: 100%;
+max-width: 1400px;
+margin: 0 auto;
+position: relative;
+padding-bottom: 10vh;
+}
+.card-item {
+position: sticky;
+top: 10vh;
+height: 80vh;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 5vh;
+}
+.card-inner {
+width: 90%;
+height: 100%;
+background: #1a1a1a;
+border: 1px solid rgba(255,255,255,0.1);
+position: relative;
+overflow: hidden;
+display: grid;
+grid-template-columns: 1fr 1.2fr;
+box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+.card-content {
+padding: 4rem;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+background: #1a1a1a;
+z-index: 2;
+}
+.card-img-wrap {
+position: relative;
+width: 100%;
+height: 100%;
+overflow: hidden;
+}
+.card-img {
+width : 100% ;
+height: 100% ;
+object-fit: cover;
+transition: transform 1.5s ease;
+aspect-ratio : 16/9 ; 
+object-fit : cover ;
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  flex: 1 1 300px; /* Grows, shrinks, base width 300px */
+  max-width: 100%;
+  overflow: hidden; /* Prevents content spill */
+}
+
+.card img {
+  width: 100%;
+  height: auto; /* Ensures entire image is visible */
+}
+@media (max-width: 768px) {
+.card-inner { grid-template-columns: 1fr; }
+.card-item { top: 5vh; height: 85vh; }
+.card-img-wrap { height: 100%; order: -1; }
+.card-content { padding: 2rem; }
+.footer-sticky { height: auto; padding: 2rem; }
+}
+.footer-sticky {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 100vh;
+z-index: 1;
+background: #111;
+color: #fff;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+.display { font-family: var(--font-display); }
+.noise-overlay {
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 9000;
+opacity: 0.04;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+}
+.marathi-text , .english-text {
+line-height : 1.4 ;
+vertical-align : middle ;
+}
+.card img {
+    width : 100% ; 
+    aspect-ratio : 16/9 ; 
+    object-fit : cover ; 
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+</style>
+</head>
+<body class="antialiased">
+
+    <div class="noise-overlay"></div>
+
+    <!-- Preloader / view-loader -->
+    <div class="loader">
+        <div class="loader-text"> SKMM </div> 
+    </div>
+
+
+
+
+
+
+    <!-- Navviagtion -->
+    <nav class="fixed top-0 w-full p-8 flex justify-between items-center z-50 mix-blend-difference text-white">
+        <div class="display font-semibold text-xl tracking-tighter"> 
+            <a href="#" class="hover:text-gray-400 transition-colors items-center"> SKMM </a> <br margin-bottom="0"> 
+            <a class=" md:flex gap-10 text-xs uppercase font-low items-center"> Since 2012 </a>
+        </div>
+        
+    </nav>
+
+
+
+
+
+
+
+
+    <!-- Wrapper -->
+    <div class="wrapper">
+        
+        <!-- Hero section -->
+        <section class="h-screen relative flex items-center justify-center overflow-hidden">
+            <img src="./img/15.jpeg" class="absolute inset-0 w-full h-full object-cover brightness-50 hero-img" alt="Background">
+            <div class="relative z-10 text-center text-white px-6">
+                <h1 class="display text-[7vw] leading-none hero-text overflow-hidden tracking-tighter">
+                    <span class="block translate-y-full uppercase">SARITA KUNJ </span>
+                </h1>
+                <h1 class="display text-[7vw] leading-none hero-text overflow-hidden tracking-tighter">
+                    <span class="block translate-y-full uppercase"> MITRA MANDAL</span>
+                </h1>
+                <p class="mt-8 text-xs md:text-sm uppercase tracking-[0.5em] font-medium opacity-0 hero-fade"> DEVOTION AND COMPASSION ...</p>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+        <!-- Introduction -->
+        <section class="py-32 px-6 md:px-20 grid md:grid-cols-2 gap-16 max-w-[1800px] mx-auto bg-[var(--c-bg)]">
+            <div>
+                <iconify-icon icon="solar:alt-arrow-down-bold-duotone" stroke-width="1.5" class="text-5xl mb-6 text-[var(--c-accent)] " ></iconify-icon>
+                <h2 class="display text-3xl md:text-5xl leading-tight split-animate font-semibold tracking-tight">
+                SARITA KUNJ MITRA MANDAL <br><span class="text-[var(--c-accent)]"> </span>
+                </h2>
+            </div>
+            <div class="text-lg md:text-xl font-light leading-relaxed text-gray-700">
+                <p class="mb-8 split-animate"> Sarita kunj mitra mandal , a group of youngsters dedicated to plan,  arrange and manage festivals and various events with compassion and devotion. </p>
+                <div class="h-px w-full bg-black/10 my-8"></div>
+                <div class="flex gap-12 text-xs uppercase tracking-widest font-semibold text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <iconify-icon icon="solar:map-point-linear" stroke-width="1.5" class="text-lg"></iconify-icon>
+                        Kasarwadi , Pune 
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+        <!-- Multiple cards section -->
+        <section class="stack-section">
+            <div class="text-center mb-20 px-6">
+                <div class="text-xs uppercase tracking-widest mb-4 opacity-50 font-semibold">WORK</div>
+                <h2 class="display text-4xl md:text-7xl tracking-tighter uppercase font-semibold"> FESTIVALS AND EVENTS </h2>
+            </div>
+
+            <div class="stack-container">
+
+
+
+
+
+
+
+                
+                <!-- Card no 1 -->
+                <div class="card-item">
+                    <div class="card-inner">
+                        <div class="card-content">
+                            <div>
+                                <div class="text-4xl md:text-5xl display mb-2 text-[var(--c-bg)] opacity-20">01</div>
+                                <h3 class="text-2xl md:text-3xl font-semibold tracking-tight"> GANESH UTSAV </h3>
+                                <p class="text-xs mt-4 opacity-60 uppercase tracking-widest font-medium">Each year , with better planning and organization </p>
+                            </div>
+                            <div class="text-gray-400 font-light text-sm md:text-base leading-relaxed">
+                             Sarita Kunj Mitra Mandal has been organizing Ganesh Utsav for many years, ensuring that the celebrations are filled with devotion, cultural activities, and community participation. The team works tirelessly to create a memorable experience for all attendees, emphasizing the importance of tradition and togetherness.
+                            </div>
+                             <button class="text-left flex items-center uppercase tracking-widest text-xs border-b border-white/30 pb-2 w-max hover:text-white transition-all font-semibold group">
+                                MANAGEMNT <iconify-icon stroke-width="1.5" class="ml-2 text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                            </button>
+                        </div>
+                        <div class="card-img-wrap">
+                            <img src="img/5.jpeg" class="card-img" alt="Primary Care">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <!-- Card no 2 -->
+                <div class="card-item">
+                    <div class="card-inner">
+                        <div class="card-content">
+                            <div>
+                                <div class="text-4xl md:text-5xl display mb-2 text-[var(--c-bg)] opacity-20">02</div>
+                                <h3 class="text-2xl md:text-3xl font-semibold tracking-tight"> MEMBERS </h3>
+                                <p class="text-xs mt-4 opacity-60 uppercase tracking-widest font-medium"> All the members dedicated to the cause </p>
+                            </div>
+                            <div class="text-gray-400 font-light text-sm md:text-base leading-relaxed">
+                                Sarita Kunj Mitra Mandal is composed of a dedicated group of members who are passionate about organizing variuos festivals and events. Each member brings unique skills and perspectives, contributing to the successful planning and execution of various events. Their commitment to the organization's mission ensures that every festival and event is conducted with excellence and care in Sarita Kunj.
+                            </div>
+                            <button class="text-left flex items-center uppercase tracking-widest text-xs border-b border-white/30 pb-2 w-max hover:text-white transition-all font-semibold group">
+                                MANAGEMENT <iconify-icon stroke-width="1.5" class="ml-2 text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                            </button>
+                        </div>
+                        <div class="card-img-wrap">
+                            <img src="img/14.jpeg" class="card-img" alt="Urgent Care">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <!-- Card no 3 -->
+                <div class="card-item">
+                    <div class="card-inner">
+                        <div class="card-content">
+                            <div>
+                                <div class="text-4xl md:text-5xl display mb-2 text-[var(--c-bg)] opacity-20">03</div>
+                                <h3 class="text-2xl md:text-3xl font-semibold tracking-tight"> FEMALE PARTICIPATION </h3>
+                                <p class="text-xs mt-4 opacity-60 uppercase tracking-widest font-medium"> Women participate wholeheartedly in all activities</p>
+                            </div>
+                            <div class="text-gray-400 font-light text-sm md:text-base leading-relaxed">
+                                Sarita Kunj Mitra Mandal actively encourages female participation in all its activities, recognizing the importance of inclusivity and diversity. Women members play a vital role in planning and executing events, bringing fresh perspectives and ideas to the table. Their involvement ensures that the organization's initiatives are well-rounded and representative of the cause it serves.   
+                            </div>
+                            <button class="text-left flex items-center uppercase tracking-widest text-xs border-b border-white/30 pb-2 w-max hover:text-white transition-all font-semibold group">
+                                MANAGEMENT <iconify-icon stroke-width="1.5" class="ml-2 text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                            </button>
+                        </div>
+                        <div class="card-img-wrap">
+                            <img src="img/19.jpeg" class="card-img" alt="Telehealth">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                 <!-- Card no 4 -->
+                <div class="card-item">
+                    <div class="card-inner">
+                        <div class="card-content">
+                            <div>
+                                <div class="text-4xl md:text-5xl display mb-2 text-[var(--c-bg)] opacity-20">04</div>
+                                    <h3 class="text-2xl md:text-3xl font-semibold tracking-tight"> FELICITATION </h3>
+                                <p class="text-xs mt-4 opacity-60 uppercase tracking-widest font-medium">We felicitate the worthy and honourable members </p>
+                            </div>
+                                <div class="text-gray-400 font-light text-sm md:text-base leading-relaxed">
+                                    Sarita Kunj Mitra Mandal believes in recognizing and honoring the contributions of its members like <b>SIDDHARTH RAJARAM KEDARI </b> who significantly contributed to the organization's success and helped us in the decoration of the event. Felicitation ceremonies are organized to appreciate the efforts and dedication of individuals who have significantly contributed to the organization's success. These events serve as a platform to celebrate achievements and motivate members to continue their valuable work in promoting devotion and compassion through various festivals and events.
+                                </div>
+                                <button class="text-left flex items-center uppercase tracking-widest text-xs border-b border-white/30 pb-2 w-max hover:text-white transition-all font-semibold group">
+                                    MANAGEMENT <iconify-icon stroke-width="1.5" class="ml-2 text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                                </button>
+                        </div>
+                            <div class="card-img-wrap">
+                                <img src="img/10.jpeg" class="card-img" alt="Telehealth">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+        <!-- FInal info section -->
+
+        <!-- Management and Planning -->
+        <section class="py-40 bg-[#E3E1DC] text-center flex flex-col items-center justify-center relative z-10 px-6">
+            <iconify-icon icon="ep:management" stroke-width="1.5" class="text-5xl mb-6 text-[var(--c-accent)]"></iconify-icon>
+            <h2 class="display text-2xl md:text-4xl mb-8 tracking-tight font-semibold"> MANAGEMENT AND PLANNING </h2>
+            <div class="max-w-xl text-gray-600 font-light mb-12 leading-relaxed text-base md:text-lg">
+                Sarita Kunj Mitra Mandal is committed to meticulous management and planning of festivals and events. The team ensures that every aspect, from logistics to cultural programming, is thoughtfully organized to provide a seamless and enriching experience for attendees. Their dedication to excellence reflects the organization's core values of devotion, compassion, and community engagement.
+                <div>
+                    <img src="img/22.jpeg" class="w-full h-auto mt-6 rounded-lg shadow-lg" alt="Patient-Centered Care" />
+                </div>
+            </div>
+            <div class="h-16 w-px bg-black/20"></div>
+            
+        </section>
+        <!-- Festivals and Events -->
+         <section class="py-40 bg-[#E3E1DC] text-center flex flex-col items-center justify-center relative z-10 px-6">
+            <iconify-icon icon="mdi:events" stroke-width="1.5" class="text-5xl mb-6 text-[var(--c-accent)]"></iconify-icon>
+                <h2 class="display text-2xl md:text-4xl mb-8 tracking-tight font-semibold"> 
+                    FESTIVALS AND EVENTS 
+                </h2>
+            <div class="max-w-xl text-gray-600 font-light mb-12 leading-relaxed text-base md:text-lg">
+                Sarita Kunj Mitra Mandal organizes a variety of festivals and events throughout the year, bringing together the community in celebration and devotion. These events are carefully planned to ensure a meaningful and enjoyable experience for all participants.
+                <div>
+                    <img src="img/23.jpeg" class="w-full h-auto mt-6 rounded-lg shadow-lg" alt="Patient-Centered Care" />
+                </div>
+            </div>
+            
+        </section>
+
+
+        <!-- Members -->
+        <section class="py-40 bg-[#E3E1DC] text-center flex flex-col items-center justify-center relative z-10 px-6">
+            <iconify-icon icon="mingcute:group-3-line" stroke-width="1.5" class="text-5xl mb-6 text-[var(--c-accent)]"></iconify-icon>
+            <h2 class="display text-2xl md:text-4xl mb-8 tracking-tight font-semibold"> OUR MEMBERS </h2>
+            <div class="max-w-xl text-gray-600 font-light mb-12 leading-relaxed text-base md:text-lg">
+                Sarita Kunj Mitra Mandal is proud to have a dedicated team of members who work tirelessly to organize and execute our festivals and events. Their commitment and passion for service make a significant impact in the community and beyond with GODS grace and ASHIRVAD.
+                <br> <br>
+               <h5 class="display text-2xl md:text-4xl mb-8 tracking-tight font-semibold"><b> Names include : </b> </h5>
+                <ul class="text-black-600 font-light mb-12 leading-relaxed text-base md:text-lg list-disc list-inside" align="left" >
+                    <li>Mayank Gujar</li>
+                    <li>Shubham Pawar</li>
+                    <li>Tanish Choudhary</li>
+                    <li>Rohit Jagtap</li>
+                    <li>Kishor Dhawde</li>
+                    <li>Raj Kedari</li>
+                    <li>Shahbaz Pathan</li>
+                    <li>Ayush Brahamane</li>
+                    <li>Ayush Ojha</li>
+                    <li>Aditya Ransube</li>
+                    <li>Piyush Brahamane</li>
+                    <li>Vedant Kavache</li>
+                    <li>Swaraj Sarawde</li>
+                    <li>Saksham Desai</li>
+                    <li>Rudraksh Jadhav</li>
+                    <li>Kshitij Gujar</li>
+                    <li>Shyam Yelnure</li>
+                </ul>
+                    <div>
+                        <img src="img/24.jpeg" class="w-full h-auto mt-6 rounded-lg shadow-lg" alt="Our Members" />
+                    </div>                
+            </div>
+            <!-- Last  iconify icons section before footer-->
+            <div>
+               <br><br>
+                <iconify-icon icon="solar:medal-ribbon-star-bold" stroke-width="1.5" class="text-5xl mb-6 text-[var(--c-accent)]"></iconify-icon>
+                <iconify-icon icon="solar:bill-2-bold" stroke-width="1.5" class="text-5xl mb-6 text-[var(--c-accent)]"></iconify-icon>
+                <iconify-icon icon="solar:book-bookmark-bold" stroke-width="1.5" class="text-5xl mb-6 text-[var(--c-accent)]"></iconify-icon>
+                <iconify-icon icon="solar:bill-bold" stroke-width="1.5" class="text-5xl mb-6 text-[var(--c-accent)]"></iconify-icon>
+                <iconify-icon icon="solar:graph-up-bold" stroke-width="1.5" class="text-5xl mb-6 text-[var(--c-accent)]"></iconify-icon>
+            </div>
+        </section>
+    </div> 
+
+
+
+
+
+
+
+    
+
+    <!-- Footer section -->    
+    <footer class="footer-sticky px-6">
+        <div class="relative z-10 text-center">
+            <iconify-icon icon="fa7-solid:pray" stroke-width="1.5"></iconify-icon>
+                <div class="text-xs uppercase tracking-[0.3em] mb-4 text-gray-500 font-medium">
+                     <b>SADAIV BHAKTI</b> 
+                </div> <br><br>
+                    <a href="#" class="display text-[7vw] leading-none hover:text-gray-400 transition-colors tracking-tighter font-semibold flex items-center justify-center gap-4">
+                        ALWAYS IN GODS SERVICE AND DEVOTION 
+                    </a>
+            
+        </div>
+
+        <img src="img/15.jpeg" class="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none grayscale">
+
+        <div class="text-xs uppercase tracking-[0.3em] mb-4 text-white-500 font-medium">
+          <br><br><br><br>
+            <b>
+                <p align="center"> For sponsorship opportunities, <br>please contact us at 
+                    <a href="mailto:saritakunjmitramandal@gmail.com" target="_blank" align="center">
+                     saritakunjmitramandal@gmail.com
+                    </a>
+                </p>
+            </b>
+        </div>
+        <!--Social media footer section-->
+        <br><br><br>
+        <div class="flex justify-center gap-8 mt-12">
+             <a href="https://www.instagram.com/saritakunj_mitramandal" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                <iconify-icon icon="thesvg-color:instagram" width="24" height="24"></iconify-icon>
+             </a>
+
+
+            <a href="https://www.youtube.com/@saritakunjmitramandal26" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                <iconify-icon icon="thesvg-color:youtube" width="24" height="24"></iconify-icon>
+            </a>
+
+
+            <a href="https://www.facebook.com/share/1cfqniPh4b/" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                <iconify-icon icon="thesvg-color:facebook" width="24" height="24"></iconify-icon>
+            </a>
+
+
+            <a href="https://x.com/Saritakunj" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                <iconify-icon icon="thesvg-color:twitter" width="24" height="24"></iconify-icon>
+            </a>
+           
+        </div>
+
+        <div  class="flex justify-center gap-8 mt-12 text-xs uppercase tracking-widest text-gray-400 font-medium">
+            <a href="#" class="hover:text-white transition-colors"> BACK TO HOME PAGE </a>
+        </div>
+
+        <div class="mt-10 text-[10px] text-gray-700 font-medium tracking-widest">
+         © 2012 SARITA KUNJ MITRA MANDAL , KASARWADI , PUNE 
+        </div>
+        
+
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            smooth: true,
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        function splitTextToWords(element) {
+            const text = element.innerText;
+            const words = text.split(' ');
+            element.innerHTML = '';
+            words.forEach(word => {
+                const wordWrap = document.createElement('span');
+                wordWrap.classList.add('word-wrap');
+                wordWrap.innerHTML = `<span class="word-inner">${word}&nbsp;</span>`;
+                element.appendChild(wordWrap);
+            });
+        }
+
+        document.querySelectorAll('.split-animate').forEach(el => {
+            splitTextToWords(el);
+        });
+
+        const loadTl = gsap.timeline({
+            onComplete: () => {
+                document.body.style.opacity = 1;
+                initSite();
+            }
+        });
+
+        loadTl.to('.loader-bar', { width: '100%', duration: 1.2, ease: 'power2.inOut' })
+              .to('.loader-text', { y: -30, opacity: 0, duration: 0.4 })
+              .to('.loader', { yPercent: -100, duration: 0.8, ease: 'power4.inOut' });
+
+        function initSite() {
+            gsap.to('.hero-text span', { 
+                y: 0, 
+                stagger: 0.1, 
+                duration: 1.4, 
+                ease: 'power4.out' 
+            });
+            gsap.to('.hero-fade', { opacity: 1, duration: 1, delay: 0.6 });
+            
+            gsap.to('.hero-img', {
+                yPercent: 20,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.hero-img',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+
+            const splitElements = document.querySelectorAll('.split-animate');
+            splitElements.forEach(el => {
+                const words = el.querySelectorAll('.word-inner');
+                gsap.to(words, {
+                    y: "0%",
+                    duration: 0.8,
+                    ease: "power3.out",
+                    stagger: 0.015,
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 90%", 
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            const cards = gsap.utils.toArray('.card-item');
+            cards.forEach((card, i) => {
+                const nextCard = cards[i+1];
+                if (nextCard) {
+                    gsap.to(card.querySelector('.card-inner'), {
+                        scale: 0.92,
+                        opacity: 0.3, 
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: nextCard,
+                            start: "top bottom", 
+                            end: "top 15vh",    
+                            scrub: true
+                        }
+                    });
+                }
+            });
+
+            gsap.from('.footer-sticky > div', {
+                y: 60,
+                opacity: 0,
+                scale: 0.95,
+                scrollTrigger: {
+                    trigger: '.footer-sticky',
+                    start: 'top bottom',
+                    end: 'bottom bottom',
+                    scrub: true
+                }
+            });
+        }
+    </script>
+
+
+</body></html>
