@@ -214,7 +214,7 @@ img {
     content: "";
     position: absolute;
     border-radius: 50%;
-    background: rgba(255,255,255,0.08);
+    background: rgba(242, 214, 214, 0.08);
     filter: blur(30px);
 }
 
@@ -337,8 +337,7 @@ img {
     height: 100%;
     object-fit: cover;
     display: block;
-    opacity: 1;
-    filter: brightness(1.2) contrast(1.08) saturate(1.08);
+    opacity: 90% ; 
 }
 
 .event-slide video {
@@ -347,16 +346,15 @@ img {
     object-fit: cover;
     display: block;
     opacity: 1;
-    filter: brightness(1.25) contrast(1.1) saturate(1.1);
+    filter: brightness(1.15) contrast(1.05);
 }
 
 .event-slide::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(8,5,4,0.01) 0%, rgba(8,5,4,0.08) 35%, rgba(10,8,7,0.18) 100%);
+    background: linear-gradient(180deg, rgba(8,5,4,0.03) 0%, rgba(8,5,4,0.12) 38%, rgba(10,8,7,0.30) 100%);
 }
-
 
 .event-meta {
     position: absolute;
@@ -654,7 +652,7 @@ img {
                 </div>
             </article>
           <article class="event-slide">
-                        <video autoplay="" loop="" muted="" playsinline="" class="absolute inset-0 w-full h-full object-cover">
+                        <video autoplay="" loop="" muted="" playsinline="" class="absolute inset-0 w-full h-full object-cover ">
                         <source class="event-slide" src="./video/5.mp4" type="video/mp4">
                         </video>
                         <div class="event-meta">
@@ -665,7 +663,7 @@ img {
                     </article>
                    
                     <article class="event-slide">
-                        <video autoplay="" loop="" muted="" playsinline="" class="absolute inset-0 w-full h-full object-cover">
+                        <video autoplay="" loop="" muted="" playsinline="" class="absolute inset-0 w-full h-full object-cover ">
                         <source class="event-slide" src="./video/3.mp4" type="video/mp4">
                         </video>
                         <div class="event-meta">
@@ -685,7 +683,7 @@ img {
                         </div>
                     </article>
                     <article class="event-slide">
-                        <video autoplay="" loop="" muted="" playsinline="" class="absolute inset-0 w-full h-full object-cover">
+                        <video autoplay="" loop="" muted="" playsinline="" class="absolute inset-0 w-full h-full object-cover ">
                         <source src="./video/6.mp4" type="video/mp4">
                         </video>
                         <div class="event-meta">
