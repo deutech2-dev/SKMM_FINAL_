@@ -345,14 +345,15 @@ img {
     height: 100%;
     object-fit: cover;
     display: block;
-    opacity: 90%;
+    opacity: 1;
+    filter: brightness(1.15) contrast(1.05);
 }
 
 .event-slide::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(8,5,4,0.08) 0%, rgba(8,5,4,0.22) 38%, rgba(10,8,7,0.72) 100%);
+    background: linear-gradient(180deg, rgba(8,5,4,0.03) 0%, rgba(8,5,4,0.12) 38%, rgba(10,8,7,0.30) 100%);
 }
 
 .event-meta {
